@@ -1,4 +1,3 @@
-//acum definirea devine mai ciudata
 #pragma once
 #include "Punct.h"
 class Dreptunghi : public Punct
@@ -8,32 +7,16 @@ class Dreptunghi : public Punct
 	int latime, lungime; // definirea latimii si lungimii
 
 public:
-	Dreptunghi(const Punct& varf, int l, int L)//ca in cerinta, parametrii sunt punctul de plecare, lungimea latimea
-	{
-		stSus = varf;
-		latime = l;
-		lungime = L;
-		tip = 3;
-	}
+	Dreptunghi(const Punct& varf, int l, int L);//ca in cerinta, parametrii sunt punctul de plecare, lungimea latimea
+	Dreptunghi(const Dreptunghi& other); // Constructor de copiere
+	Dreptunghi(); // constructorul care creaza un patrat de 10 x 10 cu vf stanga sus in origine
+	~Dreptunghi(); // Destructor
 
-	void translatie(const Coordonate& vec) override
-	{
-		stSus.translatie(vec); // datorita faptului ca stSus este un obiect de tip Punct, va prelua metodele clasei punct
-	}
+	Dreptunghi* operator+(const Coordonate& vec) const override;
+	Dreptunghi* operator*(const Coordonate& scalar) const override;
+	void afisare() const override;
+	void citire() override;
 
-	void scalare(const Coordonate& scalar) override
-	{
-		stSus.scalare(scalar); // acelasi lucru aici pentru *
-		latime *= scalar.x; //aici latimea este latura orizontala, deci se va inmulti cu abscisa scalarului
-		lungime *= scalar.y; //similar, lungimea fiind latura verticala, se va inmulti cu ordonata scalarului
-	}
-
-	void afisare() const override
-	{
-		std::cout << "Dreptunghiul care coltul din stanga sus in: ";
-		stSus.afisare();
-		std::cout << " , iar latimea dreptunghiul are masura: " << latime;
-		std::cout << " si lungimea are masura: " << lungime << std::endl;
-	}//aici functia de afisare va apela metoda de afisare al clasei Punct pentru obiectul stSus 
+	void setLat(int l);
+	void setLung(int l);
 };
-
