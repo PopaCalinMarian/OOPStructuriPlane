@@ -4,22 +4,71 @@
 #include <iostream>
 #include "Punct.h"
 #include "Dreptunghi.h"
+#include "SegmentOrizontal.h"
+#include "SegmentVertical.h"
 
 int main()
 {
-    /*
-    * verificari borate 
-    //vom creea un punct si vom verifica modificarile acestuia
-    */
-    Punct A(-3, 6);
+    //intai vom testa tot ce tina de clasa punct
+    Punct A;
     A.afisare();
-    Coordonate vec = { 6,6 };
-    Dreptunghi d(A, 2, 3);
-    d.afisare();
-    d.translatie(vec);
-    d.afisare();
-    d.scalare(vec);
-    d.afisare();
+    A.citire();
+    A.afisare();//afisarea
+   
+    Coordonate fact = { 2,2 };
+    Punct* rezA = A + fact;
+    rezA->afisare();
+    rezA->~Punct();//adunarea
+
+    Figura* rezB = A * fact;
+    rezB->afisare();
+    rezB->~Figura();
+    
+    A.~Punct();
+
+    //acum testam clasa dreptunghi
+
+    Dreptunghi D;
+    D.afisare();//testez constructorul default
+    D.citire();
+    Dreptunghi* rezD = D + fact;
+    rezD->afisare();
+    rezD->~Dreptunghi();//adunarea
+
+    Dreptunghi* rezDD = D * fact;
+    rezDD->afisare();
+    rezDD->~Dreptunghi();
+
+    D.~Dreptunghi();
+
+    //acum testam clasa segmentului orizontal
+    SegmentOrizontal SO;
+    SO.afisare();
+    SO.citire();
+    SegmentOrizontal* rezSO = SO + fact;
+    rezSO->afisare();
+    rezSO->~SegmentOrizontal();
+
+    SegmentOrizontal* rezSSO = SO * fact;
+    rezSSO->afisare();
+    rezSSO->~SegmentOrizontal();
+
+    SO.~SegmentOrizontal();
+
+    //acum testam clasa segmentului vertical
+    SegmentVertical SV;
+    SV.afisare();//again, testez constructorul normal
+    SV.citire();
+
+    SegmentVertical* rezSV = SV + fact;
+    rezSV->afisare();
+    rezSV->~SegmentVertical();
+
+    SegmentVertical* rezSSV = SV * fact;
+    rezSSV->afisare();
+    rezSSV->~SegmentVertical();
+
+    SV.~SegmentVertical();
 
     return 0;//inchidam programul
 

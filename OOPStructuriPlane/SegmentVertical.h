@@ -1,37 +1,25 @@
-//pentru segmentul vertical, se va face aproape acelasi procedeu ca si pentru segmentul orionat
 #pragma once
 #include "Figura.h"
-class SegmentVertical :
-    public Figura
+class SegmentVertical : public Figura
 {
-    int x, yj, ys;//in primul rand se va defini x ca si absisa comuna iar yj reprezinta ordonata capatului de jos iar ys celui de sus, date private ale clasei
+	int xc, yj, ys; // xc este abscisa comuna, ys fiind ordonata de jos iar ys cea de sus, aceste date fiind private
 
 public:
-    SegmentVertical(int xc, int y1, int y2)//astfel, constructorul acestei clase va prelua parametrii dati 
-    {
-        x = xc;
-        yj = y1;
-        ys = y2;
-        tip = 2;//tipul potrivit
-    }
+    SegmentVertical(int x, int y1, int y2);//astfel, constructorul acestei clase va prelua parametrii dati 
+    SegmentVertical(const SegmentVertical& other); // constructor de copiere
+    SegmentVertical();//constructor defualt
+    ~SegmentVertical(); // destructor
 
-    void translatie(const Coordonate& vec) override
-    {
-        x += vec.x;
-        yj += vec.y;
-        ys += vec.y;
-    }//ex: segmentul de coordonate (1,-4,4) va fi adunat cu (3, 2) asftel se va muta la dreapta cu 3 unitati si se va muta putin in sus cu 2 unitati, pastrand lungimea
+    // Suprascrierea operatorului + pentru translatare
+    SegmentVertical* operator+(const Coordonate& vec) const;
 
-    void scalare(const Coordonate& scalar) override
-    {
-        x *= scalar.x;
-        yj *= scalar.y;
-        ys *= scalar.y;
-    }//ex:acelasi segment anterior imultit cu (3,2), va fii mutat la dreapta cu 3 unitati, iar lungimea segmentului se va dubla intindu-se pana ordonatele -8 si 8
+    // Suprascrierea operatorului * pentru scalare
+    SegmentVertical* operator*(const Coordonate& scalar) const;
 
-    void afisare() const override
-    {
-        std::cout << "Segmentul vertical care se afla pe abscisa " << x << " si are capatul de jos in " << yj << " si capatul de sus in " << ys << std::endl;
-    }
+    void afisare() const override;
+    void citire() override; // din nou, mentionez ca metoda citiere NU este const, deoarece trebuie modificate datele clasei
+
+    void setX(int x);
+    void setYs(int y);
+    void setYj(int y);
 };
-
